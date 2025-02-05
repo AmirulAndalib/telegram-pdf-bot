@@ -1,4 +1,3 @@
-import os
 from collections.abc import AsyncGenerator, Coroutine
 from contextlib import asynccontextmanager, suppress
 from gettext import gettext as _
@@ -18,7 +17,7 @@ from telegram import (
     ReplyKeyboardRemove,
     Update,
 )
-from telegram.constants import ChatAction, FileSizeLimit, ParseMode
+from telegram.constants import ChatAction, FileSizeLimit, MessageLimit, ParseMode
 from telegram.ext import ContextTypes, ConversationHandler
 
 from pdf_bot.analytics import AnalyticsService, EventAction, TaskType
@@ -47,6 +46,7 @@ class TelegramService:
     PDF_MIME_TYPE_SUFFIX = "pdf"
     PNG_SUFFIX = ".png"
     BACK = _("Back")
+    MESSAGE_TRUNCATED = "\n..."
 
     def __init__(
         self,
@@ -67,7 +67,7 @@ class TelegramService:
             raise TelegramFileTooLargeError(
                 _(
                     "Your file is too large for me to download and process, "
-                    "please try again with a differnt file\n\n"
+                    "please try again with a different file\n\n"
                     "Note that this limit is enforced by Telegram and there's "
                     "nothing I can do unless Telegram changes it"
                 )
@@ -75,7 +75,7 @@ class TelegramService:
 
     @staticmethod
     def check_file_upload_size(path: Path) -> None:
-        if os.path.getsize(path) > FileSizeLimit.FILESIZE_UPLOAD:
+        if path.stat().st_size > FileSizeLimit.FILESIZE_UPLOAD:
             raise TelegramFileTooLargeError(
                 _(
                     "The file is too large for me to send to you\n\n"
@@ -285,12 +285,20 @@ class TelegramService:
     async def send_file_names(
         self, chat_id: int, text: str, file_data_list: list[FileData]
     ) -> None:
+        msg_text = text
         for i, file_data in enumerate(file_data_list):
             file_name = file_data.name
             if file_name is None:
                 file_name = "File name unavailable"
-            text += f"{i + 1}: {file_name}\n"
-        await self.bot.send_message(chat_id, text)
+            msg_text += f"{i + 1}: {file_name}\n"
+
+        if len(msg_text) > MessageLimit.MAX_TEXT_LENGTH:
+            msg_text = (
+                msg_text[: MessageLimit.MAX_TEXT_LENGTH - len(self.MESSAGE_TRUNCATED)]
+                + self.MESSAGE_TRUNCATED
+            )
+
+        await self.bot.send_message(chat_id, msg_text)
 
     async def send_message(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE, text: str

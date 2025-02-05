@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: telegram-pdf-bot\n"
 "Report-Msgid-Bugs-To: zeshuaro@gmail.com\n"
-"POT-Creation-Date: 2023-02-11 06:50+0000\n"
-"PO-Revision-Date: 2023-02-11 06:50\n"
+"POT-Creation-Date: 2025-02-01 20:45+0000\n"
+"PO-Revision-Date: 2025-02-01 20:45\n"
 "Last-Translator: \n"
 "Language: vi\n"
 "Language-Team: Vietnamese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Generated-By: Babel 2.17.0\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Crowdin-Project: telegram-pdf-bot\n"
 "X-Crowdin-Project-ID: 370289\n"
@@ -31,7 +31,7 @@ msgstr "Hủy bỏ"
 msgid "Done"
 msgstr "Thực hiện"
 
-#: pdf_bot/consts.py:13 pdf_bot/telegram_internal/telegram_service.py:49
+#: pdf_bot/consts.py:13 pdf_bot/telegram_internal/telegram_service.py:48
 msgid "Back"
 msgstr "Trở lại"
 
@@ -51,7 +51,7 @@ msgstr "Chào mừng bạn đến với PDF Bot!"
 msgid "Key features:"
 msgstr "Các tính năng chính:"
 
-#: pdf_bot/command/command_service.py:40
+#: pdf_bot/command/command_service.py:41
 msgid "- Compress, merge, preview, rename, split and add watermark to PDF files"
 msgstr "- Nén, hợp nhất, xem trước, đổi tên, tách và thêm hình nền mờ vào tệp PDF"
 
@@ -80,6 +80,7 @@ msgid "- And more..."
 msgstr "- Và hơn thế nữa..."
 
 #: pdf_bot/command/command_service.py:49
+#, python-brace-format
 msgid "Type {command} to see how to use PDF Bot"
 msgstr "Nhập {command} để xem cách sử dụng PDF Bot"
 
@@ -118,22 +119,27 @@ msgid "The rest of the tasks can be performed by using the following commands:"
 msgstr "Phần còn lại của các tác vụ có thể được thực hiện bằng cách sử dụng các lệnh sau:"
 
 #: pdf_bot/command/command_service.py:75
+#, python-brace-format
 msgid "{command} - compare PDF files"
 msgstr "{command} - so sánh tệp PDF"
 
 #: pdf_bot/command/command_service.py:76
+#, python-brace-format
 msgid "{command} - merge PDF files"
 msgstr "{command} - hợp nhất tệp PDF"
 
-#: pdf_bot/command/command_service.py:77
+#: pdf_bot/command/command_service.py:78
+#, python-brace-format
 msgid "{command} - convert and combine multiple images into PDF files"
 msgstr "{command} - chuyển đổi và kết hợp nhiều hình ảnh thành tệp PDF"
 
 #: pdf_bot/command/command_service.py:80
+#, python-brace-format
 msgid "{command} - create PDF files from text messages"
 msgstr "{command} - tạo tệp PDF từ tin nhắn văn bản"
 
 #: pdf_bot/command/command_service.py:83
+#, python-brace-format
 msgid "{command} - add watermark to PDF files"
 msgstr "{command} - thêm hình nền mờ vào tệp PDF"
 
@@ -157,15 +163,19 @@ msgstr "So sánh các tệp PDF của bạn"
 msgid "There are no text differences between your PDF files"
 msgstr "Không có sự khác biệt văn bản giữa các tệp PDF của bạn"
 
-#: pdf_bot/error/error_handler.py:36 pdf_bot/error/error_handler.py:42
+#: pdf_bot/error/error_handler.py:38 pdf_bot/error/error_handler.py:44
 #: pdf_bot/telegram_internal/telegram_service.py:102
 #: pdf_bot/telegram_internal/telegram_service.py:118
 msgid "Something went wrong, please try again"
 msgstr "Có điều gì đó không ổn, xin hãy thử lại"
 
-#: pdf_bot/error/error_handler.py:55 pdf_bot/error/error_service.py:17
+#: pdf_bot/error/error_handler.py:58 pdf_bot/error/error_service.py:17
 msgid "The button has expired, start over with your file or command"
 msgstr "Nút đã hết hạn, hãy bắt đầu lại với tệp hoặc lệnh của bạn"
+
+#: pdf_bot/error/error_handler.py:60
+msgid "The resulted image is invalid, try again"
+msgstr "Hình ảnh kết quả không hợp lệ, hãy thử lại"
 
 #: pdf_bot/feedback/feedback_service.py:31
 msgid "Send me your feedback in English"
@@ -183,7 +193,7 @@ msgstr "Cảm ơn bạn đã phản hồi của bạn, tôi đã chuyển tiếp
 msgid "Your file is too big for me to download and process"
 msgstr "Tệp của bạn quá lớn để tôi có thể tải xuống và xử lý"
 
-#: pdf_bot/file/file_service.py:55
+#: pdf_bot/file/file_service.py:56
 msgid "Note that this is a Telegram Bot limitation and there's nothing I can do unless Telegram changes this limit"
 msgstr "Lưu ý rằng đây là giới hạn của Telegram Bot và tôi không thể làm gì trừ khi Telegram thay đổi giới hạn này"
 
@@ -192,7 +202,7 @@ msgstr "Lưu ý rằng đây là giới hạn của Telegram Bot và tôi không
 msgid "Processing your file"
 msgstr "Xử lý tệp của bạn"
 
-#: pdf_bot/file_processor/file_task_mixin.py:68
+#: pdf_bot/file_processor/file_task_mixin.py:69
 msgid "Select the task that you'll like to perform"
 msgstr "Chọn nhiệm vụ bạn muốn thực hiện"
 
@@ -211,51 +221,53 @@ msgstr "Sang PDF"
 msgid "Remove last file"
 msgstr "Xóa tệp cuối cùng"
 
-#: pdf_bot/image_handler/batch_image_service.py:41
+#: pdf_bot/image_handler/batch_image_service.py:42
 msgid "Send me the images that you'll like to beautify or convert into a PDF file"
 msgstr "Gửi cho tôi những hình ảnh mà bạn muốn làm đẹp hoặc chuyển đổi thành tệp PDF"
 
-#: pdf_bot/image_handler/batch_image_service.py:44
+#: pdf_bot/image_handler/batch_image_service.py:45
 msgid "Note that the images will be beautified and converted in the order that you send me"
 msgstr "Lưu ý rằng các hình ảnh sẽ được làm đẹp và chuyển đổi theo thứ tự mà bạn gửi cho tôi"
 
-#: pdf_bot/image_handler/batch_image_service.py:89
+#: pdf_bot/image_handler/batch_image_service.py:93
 msgid "You've sent me these images so far:"
 msgstr "Bạn đã gửi cho tôi những hình ảnh này cho đến nay:"
 
-#: pdf_bot/image_handler/batch_image_service.py:102
+#: pdf_bot/image_handler/batch_image_service.py:107
 msgid "Select the task from below if you've sent me all the images, or keep sending me the images"
 msgstr "Chọn nhiệm vụ từ bên dưới nếu bạn đã gửi cho tôi tất cả các hình ảnh hoặc tiếp tục gửi cho tôi hình ảnh"
 
-#: pdf_bot/image_handler/batch_image_service.py:123
+#: pdf_bot/image_handler/batch_image_service.py:127
 msgid "You've already removed all the images you've sent me"
 msgstr "Bạn đã xóa tất cả hình ảnh bạn đã gửi cho tôi"
 
-#: pdf_bot/image_handler/batch_image_service.py:127
+#: pdf_bot/image_handler/batch_image_service.py:131
+#, python-brace-format
 msgid "{file_name} has been removed"
 msgstr "{file_name} đã bị xóa"
 
-#: pdf_bot/image_handler/batch_image_service.py:147
+#: pdf_bot/image_handler/batch_image_service.py:151
 msgid "You haven't sent me any images"
 msgstr "Bạn chưa gửi cho tôi bất kỳ hình ảnh nào"
 
-#: pdf_bot/image_handler/batch_image_service.py:150
+#: pdf_bot/image_handler/batch_image_service.py:154
 msgid "You've only sent me one image"
 msgstr "Bạn chỉ gửi cho tôi một hình ảnh"
 
-#: pdf_bot/image_handler/batch_image_service.py:167
+#: pdf_bot/image_handler/batch_image_service.py:171
 msgid "Beautifying and converting your images into a PDF file"
 msgstr "Làm đẹp và chuyển đổi hình ảnh của bạn thành tệp PDF"
 
-#: pdf_bot/image_handler/batch_image_service.py:169
+#: pdf_bot/image_handler/batch_image_service.py:173
 msgid "Converting your images into a PDF file"
 msgstr "Chuyển đổi hình ảnh của bạn thành tệp PDF"
 
-#: pdf_bot/language/language_service.py:94
+#: pdf_bot/language/language_service.py:87
 msgid "Select your language"
 msgstr "Chọn ngôn ngữ của bạn"
 
-#: pdf_bot/language/language_service.py:126
+#: pdf_bot/language/language_service.py:119
+#, python-brace-format
 msgid "Your language has been set to {language}"
 msgstr "Ngôn ngữ của bạn đã được thiết lập để {language}"
 
@@ -267,35 +279,38 @@ msgstr "Gửi cho tôi các tệp PDF mà bạn muốn hợp nhất"
 msgid "Note that the files will be merged in the order that you send me"
 msgstr "Lưu ý rằng các tệp sẽ được hợp nhất theo thứ tự mà bạn gửi cho tôi"
 
-#: pdf_bot/merge/merge_service.py:81
+#: pdf_bot/merge/merge_service.py:85
 msgid "You've sent me these PDF files so far:"
 msgstr "Bạn đã gửi cho tôi những tệp PDF này cho đến nay:"
 
-#: pdf_bot/merge/merge_service.py:92
+#: pdf_bot/merge/merge_service.py:99
+#, python-brace-format
 msgid "Press {done} if you've sent me all the PDF files that you'll like to merge or keep sending me the PDF files"
 msgstr "Nhấn {done} nếu bạn đã gửi cho tôi tất cả các tệp PDF mà bạn muốn hợp nhất hoặc tiếp tục gửi cho tôi các tệp PDF"
 
-#: pdf_bot/merge/merge_service.py:114
+#: pdf_bot/merge/merge_service.py:120
 msgid "You've already removed all the PDF files you've sent me"
 msgstr "Bạn đã xóa tất cả các tệp PDF mà bạn đã gửi cho tôi"
 
-#: pdf_bot/merge/merge_service.py:118
+#: pdf_bot/merge/merge_service.py:124
+#, python-brace-format
 msgid "{file_name} has been removed for merging"
 msgstr "{file_name} đã bị loại bỏ vì sáp nhập"
 
-#: pdf_bot/merge/merge_service.py:140
+#: pdf_bot/merge/merge_service.py:146
 msgid "You haven't sent me any PDF files"
 msgstr "Bạn chưa gửi cho tôi bất kỳ tệp PDF nào"
 
-#: pdf_bot/merge/merge_service.py:143
+#: pdf_bot/merge/merge_service.py:149
 msgid "You've only sent me one PDF file"
 msgstr "Bạn chỉ gửi cho tôi một tệp PDF"
 
-#: pdf_bot/merge/merge_service.py:156
+#: pdf_bot/merge/merge_service.py:162
 msgid "Merging your PDF files"
 msgstr "Hợp nhất các tệp PDF của bạn"
 
 #: pdf_bot/payment/payment_service.py:26
+#, python-brace-format
 msgid "{message} {emoji} (${value})"
 msgstr "{message} {emoji} (${value})"
 
@@ -339,7 +354,7 @@ msgstr "Trợ giúp dịch PDF Bot"
 msgid "Your PDF file is encrypted, decrypt it first then try again"
 msgstr "Tệp PDF của bạn đã được mã hóa, hãy giải mã tệp trước rồi thử lại"
 
-#: pdf_bot/pdf/pdf_service.py:163
+#: pdf_bot/pdf/pdf_service.py:164
 msgid "Your PDF file is not encrypted"
 msgstr "Tệp PDF của bạn không được mã hóa"
 
@@ -347,27 +362,28 @@ msgstr "Tệp PDF của bạn không được mã hóa"
 msgid "Incorrect password, please try again"
 msgstr "Mật khẩu không chính xác, vui lòng thử lại"
 
-#: pdf_bot/pdf/pdf_service.py:172
+#: pdf_bot/pdf/pdf_service.py:171
 msgid "Your PDF file is encrypted with a method that I can't decrypt"
 msgstr "Tệp PDF của bạn được mã hóa bằng một phương pháp mà tôi không thể giải mã"
 
-#: pdf_bot/pdf/pdf_service.py:204
+#: pdf_bot/pdf/pdf_service.py:203
 msgid "No images found in your PDF file"
 msgstr "Không tìm thấy hình ảnh nào trong tệp PDF của bạn"
 
-#: pdf_bot/pdf/pdf_service.py:216
+#: pdf_bot/pdf/pdf_service.py:215
 msgid "No text found in your PDF file"
 msgstr "Không tìm thấy văn bản trong tệp PDF của bạn"
 
-#: pdf_bot/pdf/pdf_service.py:237
-msgid "I couldn't merge your PDF files as this file is invalid: {file_name}"
-msgstr "Tôi không thể hợp nhất các tệp PDF của bạn vì tệp này không hợp lệ: {file_name}"
+#: pdf_bot/pdf/pdf_service.py:234
+#, python-format
+msgid "I couldn't merge your PDF files as this file is invalid: %s"
+msgstr "Tôi không thể hợp nhất các tệp PDF của bạn vì tệp này không hợp lệ: %s"
 
-#: pdf_bot/pdf/pdf_service.py:252
+#: pdf_bot/pdf/pdf_service.py:249
 msgid "Your PDF file already has a text layer"
 msgstr "Tệp PDF của bạn đã có một lớp văn bản"
 
-#: pdf_bot/pdf/pdf_service.py:341
+#: pdf_bot/pdf/pdf_service.py:338
 msgid "Your PDF file is invalid"
 msgstr "Tệp PDF của bạn không hợp lệ"
 
@@ -376,6 +392,7 @@ msgid "Compress"
 msgstr "Nén"
 
 #: pdf_bot/pdf_processor/compress_pdf_processor.py:35
+#, python-brace-format
 msgid "File size reduced by {percent}, from {old_size} to {new_size}"
 msgstr "Kích thước tệp giảm {percent}, từ {old_size} xuống {new_size}"
 
@@ -387,27 +404,27 @@ msgstr "Theo tỷ lệ phần trăm"
 msgid "To margin size"
 msgstr "Đến kích cỡ lề"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:23
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:24
 msgid "Send me a number between 0 and 100\n\n"
 "This is the percentage of margin space to retain between the content in your PDF file and the page"
 msgstr "Gửi cho tôi một số từ 0 đến 100\n\n"
 "Đây là phần trăm không gian lề để giữ lại giữa nội dung trong tệp PDF của bạn và trang"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:29
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:30
 msgid "Send me a number that you'll like to adjust the margin size\n\n"
 "Positive numbers will decrease the margin size and negative numbers will increase it"
 msgstr "Gửi cho tôi một số mà bạn muốn điều chỉnh kích cỡ lề\n\n"
 "Số dương sẽ làm giảm kích thước lề và số âm sẽ làm tăng kích thước lề"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:55
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:54
 msgid "Crop"
 msgstr "Cây trồng"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:59
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:58
 msgid "Select the crop type you'll like to perform"
 msgstr "Chọn kiểu cắt bạn muốn thực hiện"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:67
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:66
 msgid "The crop values are invalid, try again"
 msgstr "Các giá trị cắt không hợp lệ, hãy thử lại"
 
@@ -451,21 +468,22 @@ msgstr "Download"
 msgid "Rename"
 msgstr "Rename"
 
-#: pdf_bot/pdf_processor/rename_pdf_processor.py:36
+#: pdf_bot/pdf_processor/rename_pdf_processor.py:35
+#, python-format
 msgid "File names can't contain any of the following characters, please try again:\n"
-"{invalid_chars}"
+"%s"
 msgstr "Tên tệp không được chứa bất kỳ ký tự nào sau đây, vui lòng thử lại:\n"
-"{invalid_chars}"
+"%s"
 
 #: pdf_bot/pdf_processor/rename_pdf_processor.py:40
 msgid "Send me the file name that you'll like to rename your PDF file into"
 msgstr "Gửi cho tôi tên tệp mà bạn muốn đổi tên tệp PDF của mình thành"
 
-#: pdf_bot/pdf_processor/rotate_pdf_processor.py:38
+#: pdf_bot/pdf_processor/rotate_pdf_processor.py:37
 msgid "Rotate"
 msgstr "Xoay"
 
-#: pdf_bot/pdf_processor/rotate_pdf_processor.py:76
+#: pdf_bot/pdf_processor/rotate_pdf_processor.py:75
 msgid "Select the degrees that you'll like to rotate your PDF file in clockwise"
 msgstr "Chọn độ bạn muốn xoay tệp PDF theo chiều kim đồng hồ"
 
@@ -477,27 +495,27 @@ msgstr "Theo yếu tố"
 msgid "To dimension"
 msgstr "Đến kích thước"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:24
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:25
 msgid "Send me the scaling factors for the horizontal and vertical axes\n\n"
 "Example: 2 0.5 - this will double the horizontal axis and halve the vertical axis"
 msgstr "Gửi cho tôi các yếu tố tỷ lệ cho các trục ngang và dọc\n\n"
 "Ví dụ: 2 0,5 - điều này sẽ nhân đôi trục ngang và giảm một nửa trục dọc"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:30
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:31
 msgid "Send me the width and height\n\n"
 "Example: 150 200 - this will set the width to 150 and height to 200"
 msgstr "Gửi cho tôi chiều rộng và chiều cao\n\n"
 "Ví dụ: 150 200 - điều này sẽ đặt chiều rộng thành 150 và chiều cao là 200"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:55
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:54
 msgid "Scale"
 msgstr "Quy mô"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:59
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:58
 msgid "Select the scale type you'll like to perform"
 msgstr "Chọn loại tỷ lệ bạn muốn thực hiện"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:67
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:66
 msgid "The scale values are invalid, try again"
 msgstr "Các giá trị thang đo không hợp lệ, hãy thử lại"
 
@@ -518,38 +536,47 @@ msgid "General usage"
 msgstr "Sử dụng chung"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:57
+#, python-brace-format
 msgid "{range}      all pages"
 msgstr "{range}      tất cả các trang"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:58
+#, python-brace-format
 msgid "{range}      page 8 only"
 msgstr "Chỉ {range}      trang 8"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:59
+#, python-brace-format
 msgid "{range}    first three pages"
 msgstr "{range}    3 trang đầu tiên"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:60
+#, python-brace-format
 msgid "{range}     from page 8 onward"
 msgstr "{range}     từ trang 8 trở đi"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:61
+#, python-brace-format
 msgid "{range}     last page only"
 msgstr "chỉ {range}     trang cuối cùng"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:62
+#, python-brace-format
 msgid "{range}    all pages except the last page"
 msgstr "{range}    tất cả các trang ngoại trừ trang cuối cùng"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:63
+#, python-brace-format
 msgid "{range}     second last page only"
 msgstr "chỉ {range}     trang cuối cùng thứ hai"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:64
+#, python-brace-format
 msgid "{range}    last two pages"
 msgstr "{range}    hai trang cuối cùng"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:65
+#, python-brace-format
 msgid "{range}  third and second last pages"
 msgstr "{range}  trang cuối cùng thứ ba và thứ hai"
 
@@ -558,32 +585,37 @@ msgid "Advanced usage"
 msgstr "Sử dụng nâng cao"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:67
+#, python-brace-format
 msgid "{range}    pages {pages} and to the end"
 msgstr "{range}    trang {pages} và đến cuối cùng"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:70
+#, python-brace-format
 msgid "{range} pages {pages}"
 msgstr "{range} trang {pages}"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:71
+#, python-brace-format
 msgid "{range}   all pages in reversed order"
 msgstr "{range}   tất cả các trang theo thứ tự đảo ngược"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:72
+#, python-brace-format
 msgid "{range} pages {pages} except {page}"
 msgstr "{range} trang {pages} ngoại trừ {page}"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:75
+#, python-brace-format
 msgid "{range}  pages {pages}"
 msgstr "{range}  trang {pages}"
 
-#: pdf_bot/telegram_internal/telegram_service.py:68
-msgid "Your file is too large for me to download and process, please try again with a differnt file\n\n"
+#: pdf_bot/telegram_internal/telegram_service.py:69
+msgid "Your file is too large for me to download and process, please try again with a different file\n\n"
 "Note that this limit is enforced by Telegram and there's nothing I can do unless Telegram changes it"
-msgstr "Tệp của bạn quá lớn để tôi có thể tải xuống và xử lý, vui lòng thử lại với một tệp khác\n\n"
+msgstr "Tệp của bạn quá lớn để tôi tải xuống và xử lý, vui lòng thử lại với một tệp khác\n\n"
 "Lưu ý rằng giới hạn này được thực thi bởi Telegram và tôi không thể làm gì trừ khi Telegram thay đổi nó"
 
-#: pdf_bot/telegram_internal/telegram_service.py:80
+#: pdf_bot/telegram_internal/telegram_service.py:81
 msgid "The file is too large for me to send to you\n\n"
 "Note that this limit is enforced by Telegram and there's nothing I can do unless Telegram changes it"
 msgstr "Tệp quá lớn để tôi có thể gửi cho bạn\n\n"
@@ -619,11 +651,13 @@ msgstr "Nhảy dây"
 msgid "Send me the text that you'll like to write into your PDF file"
 msgstr "Gửi cho tôi văn bản bạn muốn viết vào tệp PDF của mình"
 
-#: pdf_bot/text/text_service.py:58
+#: pdf_bot/text/text_service.py:59
+#, python-brace-format
 msgid "Send me the font that you'll like to use for the PDF file or press {skip} to use the default font"
 msgstr "Gửi cho tôi phông chữ mà bạn muốn sử dụng cho tệp PDF hoặc nhấn {skip} để sử dụng phông chữ mặc định"
 
 #: pdf_bot/text/text_service.py:62
+#, python-brace-format
 msgid "See here for the list of supported fonts: {fonts}"
 msgstr "Xem tại đây để biết danh sách các phông chữ được hỗ trợ: {fonts}"
 
@@ -1686,5 +1720,25 @@ msgstr "Không thể chuyển đổi trang web của bạn"
 #~ msgstr ""
 
 #~ msgid "Your PDF file is encrypted"
+#~ msgstr ""
+
+#~ msgid "I couldn't merge your PDF files as this file is invalid: {file_name}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "File names can't contain any of "
+#~ "the following characters, please try "
+#~ "again:\n"
+#~ "{invalid_chars}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Your file is too large for me "
+#~ "to download and process, please try "
+#~ "again with a differnt file\n"
+#~ "\n"
+#~ "Note that this limit is enforced "
+#~ "by Telegram and there's nothing I "
+#~ "can do unless Telegram changes it"
 #~ msgstr ""
 

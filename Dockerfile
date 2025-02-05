@@ -1,9 +1,10 @@
-FROM --platform=linux/amd64 python:3.11.1-slim AS build
+FROM --platform=linux/amd64 python:3.13.1-slim AS build
 
 ARG COMMIT_HASH
 
 WORKDIR /build
-RUN apt-get update && apt-get install -y --no-install-recommends g++ gcc git python3-dev
+RUN apt-get update && apt-get install -y --no-install-recommends g++ gcc git libcairo2-dev \
+    pkg-config python3-dev
 
 RUN pip install -U pip && pip install poetry
 COPY pyproject.toml poetry.lock ./
@@ -16,7 +17,7 @@ COPY locale locale/
 RUN pybabel compile -D pdf_bot -d locale \
     && find locale -type f -name '*.po' -delete
 
-FROM --platform=linux/amd64 python:3.11.1-slim AS deploy
+FROM --platform=linux/amd64 python:3.13.1-slim AS deploy
 
 ARG COMMIT_HASH
 ENV SENTRY_RELEASE $COMMIT_HASH

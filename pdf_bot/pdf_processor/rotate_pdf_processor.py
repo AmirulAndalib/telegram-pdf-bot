@@ -16,8 +16,7 @@ from pdf_bot.telegram_internal import BackData
 from .abstract_pdf_processor import AbstractPdfProcessor
 
 
-class RotatePdfData(FileData):
-    ...
+class RotatePdfData(FileData): ...
 
 
 @dataclass(kw_only=True)
@@ -27,7 +26,7 @@ class RotateDegreeData(RotatePdfData):
 
 class RotatePdfProcessor(AbstractPdfProcessor):
     _WAIT_DEGREE = "wait_degree"
-    _DEGREES = [90, 180, 270]
+    _DEGREES = (90, 180, 270)
 
     @property
     def task_type(self) -> TaskType:

@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: telegram-pdf-bot\n"
 "Report-Msgid-Bugs-To: zeshuaro@gmail.com\n"
-"POT-Creation-Date: 2023-02-11 06:50+0000\n"
-"PO-Revision-Date: 2023-02-11 06:50\n"
+"POT-Creation-Date: 2025-02-01 20:45+0000\n"
+"PO-Revision-Date: 2025-02-01 20:45\n"
 "Last-Translator: \n"
 "Language: sr\n"
 "Language-Team: Serbian (Cyrillic)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Generated-By: Babel 2.17.0\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Crowdin-Project: telegram-pdf-bot\n"
 "X-Crowdin-Project-ID: 370289\n"
@@ -31,7 +31,7 @@ msgstr "Откажи"
 msgid "Done"
 msgstr "Завршено"
 
-#: pdf_bot/consts.py:13 pdf_bot/telegram_internal/telegram_service.py:49
+#: pdf_bot/consts.py:13 pdf_bot/telegram_internal/telegram_service.py:48
 msgid "Back"
 msgstr "Назад"
 
@@ -51,7 +51,7 @@ msgstr "Добродошли у ПДФ Бот!"
 msgid "Key features:"
 msgstr "Кључне карактеристике:"
 
-#: pdf_bot/command/command_service.py:40
+#: pdf_bot/command/command_service.py:41
 msgid "- Compress, merge, preview, rename, split and add watermark to PDF files"
 msgstr "- Компримујте, обједините, прегледајте, преименујте, разделите и додајте водени жиг ПДФ фајловима"
 
@@ -80,6 +80,7 @@ msgid "- And more..."
 msgstr "- И још много тога..."
 
 #: pdf_bot/command/command_service.py:49
+#, python-brace-format
 msgid "Type {command} to see how to use PDF Bot"
 msgstr "Укуцате {command} да бисте видели како се користи ПДФ Бот"
 
@@ -118,22 +119,27 @@ msgid "The rest of the tasks can be performed by using the following commands:"
 msgstr "Остали задаци се могу извршити помоћу следећих команди:"
 
 #: pdf_bot/command/command_service.py:75
+#, python-brace-format
 msgid "{command} - compare PDF files"
 msgstr "{command} - упоредите ПДФ фајлове"
 
 #: pdf_bot/command/command_service.py:76
+#, python-brace-format
 msgid "{command} - merge PDF files"
 msgstr "{command} - обједињавање ПДФ фајлова"
 
-#: pdf_bot/command/command_service.py:77
+#: pdf_bot/command/command_service.py:78
+#, python-brace-format
 msgid "{command} - convert and combine multiple images into PDF files"
 msgstr "{command} - конвертовање и комбиновање више слика у ПДФ фајлове"
 
 #: pdf_bot/command/command_service.py:80
+#, python-brace-format
 msgid "{command} - create PDF files from text messages"
 msgstr "{command} - креирање ПДФ фајлова од текстуалних порука"
 
 #: pdf_bot/command/command_service.py:83
+#, python-brace-format
 msgid "{command} - add watermark to PDF files"
 msgstr "{command} - додајте водени жиг ПДФ фајловима"
 
@@ -157,15 +163,19 @@ msgstr "Поређење ПДФ датотека"
 msgid "There are no text differences between your PDF files"
 msgstr "Не постоје текстуалне разлике између ВАШИХ ПДФ фајлова"
 
-#: pdf_bot/error/error_handler.py:36 pdf_bot/error/error_handler.py:42
+#: pdf_bot/error/error_handler.py:38 pdf_bot/error/error_handler.py:44
 #: pdf_bot/telegram_internal/telegram_service.py:102
 #: pdf_bot/telegram_internal/telegram_service.py:118
 msgid "Something went wrong, please try again"
 msgstr "Нешто је пошло наопако, молим вас покушајте поново"
 
-#: pdf_bot/error/error_handler.py:55 pdf_bot/error/error_service.py:17
+#: pdf_bot/error/error_handler.py:58 pdf_bot/error/error_service.py:17
 msgid "The button has expired, start over with your file or command"
 msgstr "Дугме је истекло, почните испочетка са датотеком или командом"
+
+#: pdf_bot/error/error_handler.py:60
+msgid "The resulted image is invalid, try again"
+msgstr "Добијена слика је неважећа, покушајте поново"
 
 #: pdf_bot/feedback/feedback_service.py:31
 msgid "Send me your feedback in English"
@@ -183,7 +193,7 @@ msgstr "Хвала вам на повратним информацијама, п
 msgid "Your file is too big for me to download and process"
 msgstr "Твој фајл је превелик да га преузмем и обрадим"
 
-#: pdf_bot/file/file_service.py:55
+#: pdf_bot/file/file_service.py:56
 msgid "Note that this is a Telegram Bot limitation and there's nothing I can do unless Telegram changes this limit"
 msgstr "Имајте науда да је ово ограничење Телеграм Бота и да не могу ништа да урадим ако Телеграм не промени ово ограничење"
 
@@ -192,7 +202,7 @@ msgstr "Имајте науда да је ово ограничење Телег
 msgid "Processing your file"
 msgstr "Обрада датотеке"
 
-#: pdf_bot/file_processor/file_task_mixin.py:68
+#: pdf_bot/file_processor/file_task_mixin.py:69
 msgid "Select the task that you'll like to perform"
 msgstr "Изаберите задатак који ћете хтети да извршите"
 
@@ -211,51 +221,53 @@ msgstr "У ПДФ"
 msgid "Remove last file"
 msgstr "Уклони последњу датотеку"
 
-#: pdf_bot/image_handler/batch_image_service.py:41
+#: pdf_bot/image_handler/batch_image_service.py:42
 msgid "Send me the images that you'll like to beautify or convert into a PDF file"
 msgstr "Пошаљите ми слике које ћете хтети да улепшате или претворите у ПДФ фајл"
 
-#: pdf_bot/image_handler/batch_image_service.py:44
+#: pdf_bot/image_handler/batch_image_service.py:45
 msgid "Note that the images will be beautified and converted in the order that you send me"
 msgstr "Имајте науда ће слике бити улепшане и конвертоване редоследом којим ми шаљете"
 
-#: pdf_bot/image_handler/batch_image_service.py:89
+#: pdf_bot/image_handler/batch_image_service.py:93
 msgid "You've sent me these images so far:"
 msgstr "До сада сте ми послали ове слике:"
 
-#: pdf_bot/image_handler/batch_image_service.py:102
+#: pdf_bot/image_handler/batch_image_service.py:107
 msgid "Select the task from below if you've sent me all the images, or keep sending me the images"
 msgstr "Изабери задатак одоздо ако си ми послао све слике, или настави да ми шаљеш слике"
 
-#: pdf_bot/image_handler/batch_image_service.py:123
+#: pdf_bot/image_handler/batch_image_service.py:127
 msgid "You've already removed all the images you've sent me"
 msgstr "Већ си уклонио све слике које си ми послао"
 
-#: pdf_bot/image_handler/batch_image_service.py:127
+#: pdf_bot/image_handler/batch_image_service.py:131
+#, python-brace-format
 msgid "{file_name} has been removed"
 msgstr "{file_name} је уклоњен"
 
-#: pdf_bot/image_handler/batch_image_service.py:147
+#: pdf_bot/image_handler/batch_image_service.py:151
 msgid "You haven't sent me any images"
 msgstr "Ниси ми послао никакве слике"
 
-#: pdf_bot/image_handler/batch_image_service.py:150
+#: pdf_bot/image_handler/batch_image_service.py:154
 msgid "You've only sent me one image"
 msgstr "Послао си ми само једну слику."
 
-#: pdf_bot/image_handler/batch_image_service.py:167
+#: pdf_bot/image_handler/batch_image_service.py:171
 msgid "Beautifying and converting your images into a PDF file"
 msgstr "Улепшавање и конвертовање слика у ПДФ фајл"
 
-#: pdf_bot/image_handler/batch_image_service.py:169
+#: pdf_bot/image_handler/batch_image_service.py:173
 msgid "Converting your images into a PDF file"
 msgstr "Конвертовање слика у ПДФ датотеку"
 
-#: pdf_bot/language/language_service.py:94
+#: pdf_bot/language/language_service.py:87
 msgid "Select your language"
 msgstr "Изаберите ваш језик"
 
-#: pdf_bot/language/language_service.py:126
+#: pdf_bot/language/language_service.py:119
+#, python-brace-format
 msgid "Your language has been set to {language}"
 msgstr "Ваш језик је подешен на {language}"
 
@@ -267,35 +279,38 @@ msgstr "Пошаљите ми ПДФ фајлове које ћете хтети
 msgid "Note that the files will be merged in the order that you send me"
 msgstr "Имајте на крају да ће датотеке бити обједињене редоследом којим ми шаљете"
 
-#: pdf_bot/merge/merge_service.py:81
+#: pdf_bot/merge/merge_service.py:85
 msgid "You've sent me these PDF files so far:"
 msgstr "До сада сте ми послали ове ПДФ фајлове:"
 
-#: pdf_bot/merge/merge_service.py:92
+#: pdf_bot/merge/merge_service.py:99
+#, python-brace-format
 msgid "Press {done} if you've sent me all the PDF files that you'll like to merge or keep sending me the PDF files"
 msgstr "Притисните {done} ако сте ми послали све ПДФ фајлове које ћете хтети да обједините или ми стално шаљете ПДФ фајлове"
 
-#: pdf_bot/merge/merge_service.py:114
+#: pdf_bot/merge/merge_service.py:120
 msgid "You've already removed all the PDF files you've sent me"
 msgstr "Већ сте уклонили све ПДФ фајлове које сте ми послали"
 
-#: pdf_bot/merge/merge_service.py:118
+#: pdf_bot/merge/merge_service.py:124
+#, python-brace-format
 msgid "{file_name} has been removed for merging"
 msgstr "{file_name} је за обједињавање"
 
-#: pdf_bot/merge/merge_service.py:140
+#: pdf_bot/merge/merge_service.py:146
 msgid "You haven't sent me any PDF files"
 msgstr "Ниси ми послао ниједан ПДФ фајл"
 
-#: pdf_bot/merge/merge_service.py:143
+#: pdf_bot/merge/merge_service.py:149
 msgid "You've only sent me one PDF file"
 msgstr "Послали сте ми само један ПДФ фајл"
 
-#: pdf_bot/merge/merge_service.py:156
+#: pdf_bot/merge/merge_service.py:162
 msgid "Merging your PDF files"
 msgstr "Обједињавање ПДФ датотека"
 
 #: pdf_bot/payment/payment_service.py:26
+#, python-brace-format
 msgid "{message} {emoji} (${value})"
 msgstr "{message} {emoji} (${value})"
 
@@ -339,7 +354,7 @@ msgstr "Помогните да се ПДФ Бот преведе"
 msgid "Your PDF file is encrypted, decrypt it first then try again"
 msgstr "Ваш ПДФ фајл је шифрован, дешифрујте га прво а затим покушајте поново"
 
-#: pdf_bot/pdf/pdf_service.py:163
+#: pdf_bot/pdf/pdf_service.py:164
 msgid "Your PDF file is not encrypted"
 msgstr "Ваша ПДФ датотека није шифрована"
 
@@ -347,27 +362,28 @@ msgstr "Ваша ПДФ датотека није шифрована"
 msgid "Incorrect password, please try again"
 msgstr "Нетачна лозинка, покушајте поново"
 
-#: pdf_bot/pdf/pdf_service.py:172
+#: pdf_bot/pdf/pdf_service.py:171
 msgid "Your PDF file is encrypted with a method that I can't decrypt"
 msgstr "Ваш ПДФ фајл је шифрован методом који не могу да дешифрујем"
 
-#: pdf_bot/pdf/pdf_service.py:204
+#: pdf_bot/pdf/pdf_service.py:203
 msgid "No images found in your PDF file"
 msgstr "Нема пронађених слика у ПДФ фајлу"
 
-#: pdf_bot/pdf/pdf_service.py:216
+#: pdf_bot/pdf/pdf_service.py:215
 msgid "No text found in your PDF file"
 msgstr "Није пронађен текст у ПДФ фајлу"
 
-#: pdf_bot/pdf/pdf_service.py:237
-msgid "I couldn't merge your PDF files as this file is invalid: {file_name}"
-msgstr "Нисам могао да објединим ваше ПДФ датотеке јер је ова датотека неважећа: {file_name}"
+#: pdf_bot/pdf/pdf_service.py:234
+#, python-format
+msgid "I couldn't merge your PDF files as this file is invalid: %s"
+msgstr "Нисам могао да објединим ваше ПДФ датотеке јер је ова датотека неважећа: %s"
 
-#: pdf_bot/pdf/pdf_service.py:252
+#: pdf_bot/pdf/pdf_service.py:249
 msgid "Your PDF file already has a text layer"
 msgstr "Ваш ПДФ фајл већ има слој текста"
 
-#: pdf_bot/pdf/pdf_service.py:341
+#: pdf_bot/pdf/pdf_service.py:338
 msgid "Your PDF file is invalid"
 msgstr "Ваша ПДФ датотека је неважећа"
 
@@ -376,6 +392,7 @@ msgid "Compress"
 msgstr "Компримовање"
 
 #: pdf_bot/pdf_processor/compress_pdf_processor.py:35
+#, python-brace-format
 msgid "File size reduced by {percent}, from {old_size} to {new_size}"
 msgstr "Величина датотеке смањена за {percent}, са {old_size} на {new_size}"
 
@@ -387,27 +404,27 @@ msgstr "По процентима"
 msgid "To margin size"
 msgstr "До величине маргине"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:23
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:24
 msgid "Send me a number between 0 and 100\n\n"
 "This is the percentage of margin space to retain between the content in your PDF file and the page"
 msgstr "Пошаљите ми број између 0 и 100\n\n"
 "Ово је проценат простора на маргинама који треба задржати између садржаја у ПДФ фајлу и странице"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:29
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:30
 msgid "Send me a number that you'll like to adjust the margin size\n\n"
 "Positive numbers will decrease the margin size and negative numbers will increase it"
 msgstr "Пошаљите ми број који желите да подесите величину маргине\n\n"
 "Позитивни бројеви ће смањити величину маргине и негативни бројеви ће је повећати"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:55
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:54
 msgid "Crop"
 msgstr "Изрезивање"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:59
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:58
 msgid "Select the crop type you'll like to perform"
 msgstr "Изаберите тип изрези који желите да извршите"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:67
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:66
 msgid "The crop values are invalid, try again"
 msgstr "Вредности изрезивања су неважеће, покушајте поново"
 
@@ -451,21 +468,22 @@ msgstr "Преглед"
 msgid "Rename"
 msgstr "Преименујете"
 
-#: pdf_bot/pdf_processor/rename_pdf_processor.py:36
+#: pdf_bot/pdf_processor/rename_pdf_processor.py:35
+#, python-format
 msgid "File names can't contain any of the following characters, please try again:\n"
-"{invalid_chars}"
+"%s"
 msgstr "Имена датотека не могу да садрже ниједан од следећих знакова, покушајте поново:\n"
-"{invalid_chars}"
+"%s"
 
 #: pdf_bot/pdf_processor/rename_pdf_processor.py:40
 msgid "Send me the file name that you'll like to rename your PDF file into"
 msgstr "Пошаљите ми име датотеке у које желите да преименујете свој ПДФ фајл"
 
-#: pdf_bot/pdf_processor/rotate_pdf_processor.py:38
+#: pdf_bot/pdf_processor/rotate_pdf_processor.py:37
 msgid "Rotate"
 msgstr "Ротирај"
 
-#: pdf_bot/pdf_processor/rotate_pdf_processor.py:76
+#: pdf_bot/pdf_processor/rotate_pdf_processor.py:75
 msgid "Select the degrees that you'll like to rotate your PDF file in clockwise"
 msgstr "Изаберите степене које ћете хтети да ротирајте ПДФ фајл у смеру казаљке на сату"
 
@@ -477,27 +495,27 @@ msgstr "По фактору"
 msgid "To dimension"
 msgstr "У димензију"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:24
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:25
 msgid "Send me the scaling factors for the horizontal and vertical axes\n\n"
 "Example: 2 0.5 - this will double the horizontal axis and halve the vertical axis"
 msgstr "Пошаљите ми факторе размере за хоризонталне и вертикалне осе\n\n"
 "Пример: 2 0.5 - ово ће удвостручити хоризонталну осу и преполовити вертикалну осу"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:30
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:31
 msgid "Send me the width and height\n\n"
 "Example: 150 200 - this will set the width to 150 and height to 200"
 msgstr "Пошаљи ми ширину и висину\n\n"
 "Пример: 150 200 - ово ће поставити ширину на 150, а висину на 200"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:55
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:54
 msgid "Scale"
 msgstr "Скали"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:59
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:58
 msgid "Select the scale type you'll like to perform"
 msgstr "Изаберите тип размере који ћете хтети да извршите"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:67
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:66
 msgid "The scale values are invalid, try again"
 msgstr "Вредности размере су неважеће, покушајте поново"
 
@@ -518,38 +536,47 @@ msgid "General usage"
 msgstr "Општа употреба"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:57
+#, python-brace-format
 msgid "{range}      all pages"
 msgstr "{range}      све странице"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:58
+#, python-brace-format
 msgid "{range}      page 8 only"
 msgstr "{range}      страница 8"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:59
+#, python-brace-format
 msgid "{range}    first three pages"
 msgstr "{range}    прве три стране"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:60
+#, python-brace-format
 msgid "{range}     from page 8 onward"
 msgstr "{range}     од стране 8 па надаље"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:61
+#, python-brace-format
 msgid "{range}     last page only"
 msgstr "{range}     последња страница"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:62
+#, python-brace-format
 msgid "{range}    all pages except the last page"
 msgstr "{range}    све странице осим последње странице"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:63
+#, python-brace-format
 msgid "{range}     second last page only"
 msgstr "{range}     на другој последњој страни"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:64
+#, python-brace-format
 msgid "{range}    last two pages"
 msgstr "{range}    последње две странице"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:65
+#, python-brace-format
 msgid "{range}  third and second last pages"
 msgstr "{range}  и друга последња страна"
 
@@ -558,32 +585,37 @@ msgid "Advanced usage"
 msgstr "Напредна употреба"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:67
+#, python-brace-format
 msgid "{range}    pages {pages} and to the end"
 msgstr "{range}    странице {pages} и до краја"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:70
+#, python-brace-format
 msgid "{range} pages {pages}"
 msgstr "{range} странице {pages}"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:71
+#, python-brace-format
 msgid "{range}   all pages in reversed order"
 msgstr "{range}   све странице обрнутим редоследом"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:72
+#, python-brace-format
 msgid "{range} pages {pages} except {page}"
 msgstr "{range} странице {pages} осим {page}"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:75
+#, python-brace-format
 msgid "{range}  pages {pages}"
 msgstr "{range}  странице {pages}"
 
-#: pdf_bot/telegram_internal/telegram_service.py:68
-msgid "Your file is too large for me to download and process, please try again with a differnt file\n\n"
+#: pdf_bot/telegram_internal/telegram_service.py:69
+msgid "Your file is too large for me to download and process, please try again with a different file\n\n"
 "Note that this limit is enforced by Telegram and there's nothing I can do unless Telegram changes it"
-msgstr "Yоур филе ис тоо ларге фор ме то доwнлоад анд процесс, плеасе трy агаин wитх а дифферент филе\n\n"
-"Ноте тхат тхис лимит ис енфорцед бy Телеграм анд тхере'с нотхинг И цан до унлесс Телеграм цхангес ит"
+msgstr "Ваш фајл је превелик да бих га преузео и обрадио, покушајте поново са другом датотеком\n\n"
+"Имајте науда да овај лимит спроводи Телеграм и да не могу ништа да урадим ако га Телеграм не промени"
 
-#: pdf_bot/telegram_internal/telegram_service.py:80
+#: pdf_bot/telegram_internal/telegram_service.py:81
 msgid "The file is too large for me to send to you\n\n"
 "Note that this limit is enforced by Telegram and there's nothing I can do unless Telegram changes it"
 msgstr "Фајл је превелик да бих вам послао\n\n"
@@ -619,11 +651,13 @@ msgstr "Прескочи"
 msgid "Send me the text that you'll like to write into your PDF file"
 msgstr "Пошаљите ми текст који ћете хтети да упишете у свој ПДФ фајл"
 
-#: pdf_bot/text/text_service.py:58
+#: pdf_bot/text/text_service.py:59
+#, python-brace-format
 msgid "Send me the font that you'll like to use for the PDF file or press {skip} to use the default font"
 msgstr "Пошаљите ми фонт који желите да користите за ПДФ датотеку или притисните тастер {skip} бисте користили подразумевани фонт"
 
 #: pdf_bot/text/text_service.py:62
+#, python-brace-format
 msgid "See here for the list of supported fonts: {fonts}"
 msgstr "Погледајте овде листу подржаних фонтова: {fonts}"
 
@@ -1686,5 +1720,25 @@ msgstr "Конвертовање Wеб странице није успело"
 #~ msgstr ""
 
 #~ msgid "Your PDF file is encrypted"
+#~ msgstr ""
+
+#~ msgid "I couldn't merge your PDF files as this file is invalid: {file_name}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "File names can't contain any of "
+#~ "the following characters, please try "
+#~ "again:\n"
+#~ "{invalid_chars}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Your file is too large for me "
+#~ "to download and process, please try "
+#~ "again with a differnt file\n"
+#~ "\n"
+#~ "Note that this limit is enforced "
+#~ "by Telegram and there's nothing I "
+#~ "can do unless Telegram changes it"
 #~ msgstr ""
 

@@ -12,13 +12,13 @@ import ocrmypdf
 import pdf2image
 import pdf_diff
 from img2pdf import Rotation
-from ocrmypdf.exceptions import EncryptedPdfError, PriorOcrFoundError
+from ocrmypdf.exceptions import EncryptedPdfError, PriorOcrFoundError, TaggedPDFError
 from pdfCropMargins import crop
 from pdfminer.high_level import extract_text
 from pdfminer.pdfdocument import PDFPasswordIncorrect
-from PyPDF2 import PasswordType, PdfFileMerger, PdfFileReader, PdfFileWriter
-from PyPDF2.errors import PdfReadError as PyPdfReadError
-from PyPDF2.pagerange import PageRange
+from pypdf import PasswordType, PdfReader, PdfWriter
+from pypdf.errors import PdfReadError as PyPdfReadError
+from pypdf.pagerange import PageRange
 from weasyprint import CSS, HTML
 from weasyprint.text.fonts import FontConfiguration
 
@@ -57,7 +57,7 @@ class PdfService:
             self._open_pdf(source_file_id), self._open_pdf(watermark_file_id)
         )
         wmk_page = wmk_reader.pages[0]
-        writer = PdfFileWriter()
+        writer = PdfWriter()
 
         for page in src_reader.pages:
             page.merge_page(wmk_page)
@@ -87,9 +87,10 @@ class PdfService:
 
     @asynccontextmanager
     async def compare_pdfs(self, file_id_a: str, file_id_b: str) -> AsyncGenerator[Path, None]:
-        async with self.telegram_service.download_pdf_file(
-            file_id_a
-        ) as file_name_a, self.telegram_service.download_pdf_file(file_id_b) as file_name_b:
+        async with (
+            self.telegram_service.download_pdf_file(file_id_a) as file_name_a,
+            self.telegram_service.download_pdf_file(file_id_b) as file_name_b,
+        ):
             with self.io_service.create_temp_png_file("Differences") as out_path:
                 pdf_diff.main(files=[file_name_a, file_name_b], out_file=out_path)
                 yield out_path
@@ -99,8 +100,8 @@ class PdfService:
         async with self.telegram_service.download_pdf_file(file_id) as file_path:
             with self.io_service.create_temp_pdf_file("Compressed") as out_path:
                 self.cli_service.compress_pdf(file_path, out_path)
-                old_size = os.path.getsize(file_path)
-                new_size = os.path.getsize(out_path)
+                old_size = file_path.stat().st_size
+                new_size = out_path.stat().st_size
                 yield CompressResult(old_size, new_size, out_path)
 
     @asynccontextmanager
@@ -144,7 +145,7 @@ class PdfService:
     ) -> AsyncGenerator[Path, None]:
         async with self.telegram_service.download_pdf_file(file_id) as file_path:
             with self.io_service.create_temp_pdf_file("Cropped") as out_path:
-                crop(["-p", str(percentage), "-o", out_path, file_path])
+                crop(["-p", str(percentage), "-o", str(out_path), str(file_path)])
                 yield out_path
 
     @asynccontextmanager
@@ -153,7 +154,7 @@ class PdfService:
     ) -> AsyncGenerator[Path, None]:
         async with self.telegram_service.download_pdf_file(file_id) as file_path:
             with self.io_service.create_temp_pdf_file("Cropped") as out_path:
-                crop(["-a", str(margin_size), "-o", out_path, file_path])
+                crop(["-a", str(margin_size), "-o", str(out_path), str(file_path)])
                 yield out_path
 
     @asynccontextmanager
@@ -164,15 +165,13 @@ class PdfService:
 
         try:
             if reader.decrypt(password) == PasswordType.NOT_DECRYPTED:
-                raise PdfIncorrectPasswordError(  # noqa: raise-within-try
-                    _("Incorrect password, please try again")
-                )
+                raise PdfIncorrectPasswordError(_("Incorrect password, please try again"))
         except NotImplementedError as e:
             raise PdfDecryptError(
                 _("Your PDF file is encrypted with a method that I can't decrypt")
             ) from e
 
-        writer = PdfFileWriter()
+        writer = PdfWriter()
         for page in reader.pages:
             writer.add_page(page)
 
@@ -182,7 +181,7 @@ class PdfService:
     @asynccontextmanager
     async def encrypt_pdf(self, file_id: str, password: str) -> AsyncGenerator[Path, None]:
         reader = await self._open_pdf(file_id)
-        writer = PdfFileWriter()
+        writer = PdfWriter()
 
         for page in reader.pages:
             writer.add_page(page)
@@ -224,21 +223,19 @@ class PdfService:
     @asynccontextmanager
     async def merge_pdfs(self, file_data_list: list[FileData]) -> AsyncGenerator[Path, None]:
         file_ids = self._get_file_ids(file_data_list)
-        merger = PdfFileMerger()
+        writer = PdfWriter()
 
         async with self.telegram_service.download_files(file_ids) as file_paths:
             for i, file_path in enumerate(file_paths):
                 try:
-                    merger.append(file_path)
+                    writer.append(file_path)
                 except (PyPdfReadError, ValueError) as e:
                     raise PdfReadError(
-                        _(
-                            "I couldn't merge your PDF files as this file is invalid: "
-                            "{file_name}".format(file_name=file_data_list[i].name)
-                        )
+                        _("I couldn't merge your PDF files as this file is invalid: %s")
+                        % file_data_list[i].name
                     ) from e
 
-        with self._write_pdf(merger, "Merged") as out_path:
+        with self._write_pdf(writer, "Merged") as out_path:
             yield out_path
 
     @asynccontextmanager
@@ -248,7 +245,7 @@ class PdfService:
                 try:
                     ocrmypdf.ocr(file_path, out_path, progress_bar=False)
                     yield out_path
-                except PriorOcrFoundError as e:
+                except (PriorOcrFoundError, TaggedPDFError) as e:
                     raise PdfServiceError(_("Your PDF file already has a text layer")) from e
                 except EncryptedPdfError as e:
                     raise PdfEncryptedError from e
@@ -260,7 +257,7 @@ class PdfService:
             self.io_service.create_temp_png_file("Preview") as out_path,
         ):
             reader = await self._open_pdf(file_id)
-            writer = PdfFileWriter()
+            writer = PdfWriter()
             writer.add_page(reader.pages[0])
             writer.write(pdf_path)
 
@@ -280,10 +277,10 @@ class PdfService:
     @asynccontextmanager
     async def rotate_pdf(self, file_id: str, degree: int) -> AsyncGenerator[Path, None]:
         reader = await self._open_pdf(file_id)
-        writer = PdfFileWriter()
+        writer = PdfWriter()
 
         for page in reader.pages:
-            writer.add_page(page.rotate_clockwise(degree))
+            writer.add_page(page.rotate(degree))
 
         with self._write_pdf(writer, "Rotated") as out_path:
             yield out_path
@@ -293,7 +290,7 @@ class PdfService:
         self, file_id: str, scale_data: ScaleData
     ) -> AsyncGenerator[Path, None]:
         reader = await self._open_pdf(file_id)
-        writer = PdfFileWriter()
+        writer = PdfWriter()
 
         for page in reader.pages:
             page.scale(scale_data.x, scale_data.y)
@@ -307,7 +304,7 @@ class PdfService:
         self, file_id: str, scale_data: ScaleData
     ) -> AsyncGenerator[Path, None]:
         reader = await self._open_pdf(file_id)
-        writer = PdfFileWriter()
+        writer = PdfWriter()
 
         for page in reader.pages:
             page.scale_to(scale_data.x, scale_data.y)
@@ -323,20 +320,20 @@ class PdfService:
     @asynccontextmanager
     async def split_pdf(self, file_id: str, split_range: str) -> AsyncGenerator[Path, None]:
         reader = await self._open_pdf(file_id)
-        merger = PdfFileMerger()
-        merger.append(reader, pages=PageRange(split_range))
+        writer = PdfWriter()
+        writer.append(reader, pages=PageRange(split_range))
 
-        with self._write_pdf(merger, "Split") as out_path:
+        with self._write_pdf(writer, "Split") as out_path:
             yield out_path
 
     @staticmethod
     def _get_file_ids(file_data_list: list[FileData]) -> list[str]:
         return [x.id for x in file_data_list]
 
-    async def _open_pdf(self, file_id: str, allow_encrypted: bool = False) -> PdfFileReader:
+    async def _open_pdf(self, file_id: str, allow_encrypted: bool = False) -> PdfReader:
         async with self.telegram_service.download_pdf_file(file_id) as file_name:
             try:
-                pdf_reader = PdfFileReader(file_name)
+                pdf_reader = PdfReader(file_name)
             except PyPdfReadError as e:
                 raise PdfReadError(_("Your PDF file is invalid")) from e
 
@@ -345,9 +342,7 @@ class PdfService:
         return pdf_reader
 
     @contextmanager
-    def _write_pdf(
-        self, writer: PdfFileWriter | PdfFileMerger, file_prefix: str
-    ) -> Generator[Path, None, None]:
+    def _write_pdf(self, writer: PdfWriter, file_prefix: str) -> Generator[Path, None, None]:
         with self.io_service.create_temp_pdf_file(file_prefix) as out_path:
             writer.write(out_path)
             yield out_path

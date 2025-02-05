@@ -27,13 +27,13 @@ def main(
         settings = Settings(**settings)
 
     if settings.sentry_dsn is not None:
-        sentry_sdk.init(settings.sentry_dsn, traces_sample_rate=0.8)
+        sentry_sdk.init(settings.sentry_dsn, traces_sample_rate=0.8, profiles_sample_rate=0.8)
     else:
         logger.warning("SENTRY_DSN not set")
 
     if settings.app_url is not None:
         telegram_app.run_webhook(
-            listen="0.0.0.0",  # noqa: hardcoded-bind-all-interfaces
+            listen="0.0.0.0",  # noqa: S104
             port=settings.port,
             url_path=settings.telegram_token,
             webhook_url=f"{settings.app_url}/{settings.telegram_token}",

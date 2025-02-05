@@ -18,14 +18,14 @@ class CropType(SelectOption):
     by_margin_size = _("To margin size")
 
     @property
-    def ask_value_text(self) -> str:  # type: ignore[return] # pragma: no cover
+    def ask_value_text(self) -> str:  # pragma: no cover
         if self == CropType.by_percentage:
             return _(
                 "Send me a number between 0 and 100\n\nThis is the percentage of"
                 " margin space to retain between the content in your PDF file and"
                 " the page"
             )
-        if self == CropType.by_margin_size:  # noqa: implicit-return
+        if self == CropType.by_margin_size:  # noqa: RET503
             return _(
                 "Send me a number that you'll like to adjust the margin"
                 " size\n\nPositive numbers will decrease the margin size and"
@@ -33,8 +33,7 @@ class CropType(SelectOption):
             )
 
 
-class CropPdfData(FileData):
-    ...
+class CropPdfData(FileData): ...
 
 
 class CropOptionAndInputData(OptionAndInputData):

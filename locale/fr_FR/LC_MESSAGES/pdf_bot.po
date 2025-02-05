@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: telegram-pdf-bot\n"
 "Report-Msgid-Bugs-To: zeshuaro@gmail.com\n"
-"POT-Creation-Date: 2023-02-11 06:50+0000\n"
-"PO-Revision-Date: 2023-02-11 06:50\n"
+"POT-Creation-Date: 2025-02-01 20:45+0000\n"
+"PO-Revision-Date: 2025-02-01 20:45\n"
 "Last-Translator: \n"
 "Language: fr\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Generated-By: Babel 2.17.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Crowdin-Project: telegram-pdf-bot\n"
 "X-Crowdin-Project-ID: 370289\n"
@@ -31,7 +31,7 @@ msgstr "Annuler"
 msgid "Done"
 msgstr "Terminé"
 
-#: pdf_bot/consts.py:13 pdf_bot/telegram_internal/telegram_service.py:49
+#: pdf_bot/consts.py:13 pdf_bot/telegram_internal/telegram_service.py:48
 msgid "Back"
 msgstr "Retour"
 
@@ -51,7 +51,7 @@ msgstr "Bienvenue sur PDF Bot!"
 msgid "Key features:"
 msgstr "Principales caractéristiques :"
 
-#: pdf_bot/command/command_service.py:40
+#: pdf_bot/command/command_service.py:41
 msgid "- Compress, merge, preview, rename, split and add watermark to PDF files"
 msgstr "- Compresser, fusionner, prévisualiser, renommer, diviser et ajouter un filigrane aux fichiers PDF"
 
@@ -80,6 +80,7 @@ msgid "- And more..."
 msgstr "- Et plus encore..."
 
 #: pdf_bot/command/command_service.py:49
+#, python-brace-format
 msgid "Type {command} to see how to use PDF Bot"
 msgstr "Tapez {command} pour voir comment utiliser PDF Bot"
 
@@ -118,22 +119,27 @@ msgid "The rest of the tasks can be performed by using the following commands:"
 msgstr "Le reste des tâches peut être effectué à l’aide des commandes suivantes :"
 
 #: pdf_bot/command/command_service.py:75
+#, python-brace-format
 msgid "{command} - compare PDF files"
 msgstr "{command} - comparer les fichiers PDF"
 
 #: pdf_bot/command/command_service.py:76
+#, python-brace-format
 msgid "{command} - merge PDF files"
 msgstr "{command} - fusionner des fichiers PDF"
 
-#: pdf_bot/command/command_service.py:77
+#: pdf_bot/command/command_service.py:78
+#, python-brace-format
 msgid "{command} - convert and combine multiple images into PDF files"
 msgstr "{command} - convertir et combiner plusieurs images en fichiers PDF"
 
 #: pdf_bot/command/command_service.py:80
+#, python-brace-format
 msgid "{command} - create PDF files from text messages"
 msgstr "{command} - créer des fichiers PDF à partir de messages texte"
 
 #: pdf_bot/command/command_service.py:83
+#, python-brace-format
 msgid "{command} - add watermark to PDF files"
 msgstr "{command} - ajouter un filigrane aux fichiers PDF"
 
@@ -157,15 +163,19 @@ msgstr "Comparaison de vos fichiers PDF"
 msgid "There are no text differences between your PDF files"
 msgstr "Il n’y a pas de différences de texte entre vos fichiers PDF"
 
-#: pdf_bot/error/error_handler.py:36 pdf_bot/error/error_handler.py:42
+#: pdf_bot/error/error_handler.py:38 pdf_bot/error/error_handler.py:44
 #: pdf_bot/telegram_internal/telegram_service.py:102
 #: pdf_bot/telegram_internal/telegram_service.py:118
 msgid "Something went wrong, please try again"
 msgstr "Quelque chose s’est mal passé, s’il vous plaît essayer à nouveau"
 
-#: pdf_bot/error/error_handler.py:55 pdf_bot/error/error_service.py:17
+#: pdf_bot/error/error_handler.py:58 pdf_bot/error/error_service.py:17
 msgid "The button has expired, start over with your file or command"
 msgstr "Le bouton a expiré, recommencez avec votre fichier ou votre commande"
+
+#: pdf_bot/error/error_handler.py:60
+msgid "The resulted image is invalid, try again"
+msgstr "L’image obtenue n’est pas valide, réessayez"
 
 #: pdf_bot/feedback/feedback_service.py:31
 msgid "Send me your feedback in English"
@@ -183,7 +193,7 @@ msgstr "Merci pour vos commentaires, je les ai transmis à mon développeur"
 msgid "Your file is too big for me to download and process"
 msgstr "Votre fichier est trop volumineux pour que je le télécharge et le traite"
 
-#: pdf_bot/file/file_service.py:55
+#: pdf_bot/file/file_service.py:56
 msgid "Note that this is a Telegram Bot limitation and there's nothing I can do unless Telegram changes this limit"
 msgstr "Notez qu’il s’agit d’une limitation de Telegram Bot et qu’il n’y a rien que je puisse faire à moins que Telegram ne modifie cette limite"
 
@@ -192,7 +202,7 @@ msgstr "Notez qu’il s’agit d’une limitation de Telegram Bot et qu’il n�
 msgid "Processing your file"
 msgstr "Traitement de votre dossier"
 
-#: pdf_bot/file_processor/file_task_mixin.py:68
+#: pdf_bot/file_processor/file_task_mixin.py:69
 msgid "Select the task that you'll like to perform"
 msgstr "Sélectionner les actions que vous souhaitez effectuer"
 
@@ -211,51 +221,53 @@ msgstr "En PDF"
 msgid "Remove last file"
 msgstr "Supprimer le dernier fichier"
 
-#: pdf_bot/image_handler/batch_image_service.py:41
+#: pdf_bot/image_handler/batch_image_service.py:42
 msgid "Send me the images that you'll like to beautify or convert into a PDF file"
 msgstr "Envoyez-moi les images que vous aimerez embellir ou convertir en fichier PDF"
 
-#: pdf_bot/image_handler/batch_image_service.py:44
+#: pdf_bot/image_handler/batch_image_service.py:45
 msgid "Note that the images will be beautified and converted in the order that you send me"
 msgstr "Notez que les images seront embellies et converties dans l’ordre dans lequel vous m’envoyez"
 
-#: pdf_bot/image_handler/batch_image_service.py:89
+#: pdf_bot/image_handler/batch_image_service.py:93
 msgid "You've sent me these images so far:"
 msgstr "Vous m’avez envoyé ces images jusqu’à présent:"
 
-#: pdf_bot/image_handler/batch_image_service.py:102
+#: pdf_bot/image_handler/batch_image_service.py:107
 msgid "Select the task from below if you've sent me all the images, or keep sending me the images"
 msgstr "Sélectionnez la tâche ci-dessous si vous m’avez envoyé toutes les images, ou continuez à m’envoyer les images"
 
-#: pdf_bot/image_handler/batch_image_service.py:123
+#: pdf_bot/image_handler/batch_image_service.py:127
 msgid "You've already removed all the images you've sent me"
 msgstr "Vous avez déjà supprimé toutes les images que vous m’avez envoyées"
 
-#: pdf_bot/image_handler/batch_image_service.py:127
+#: pdf_bot/image_handler/batch_image_service.py:131
+#, python-brace-format
 msgid "{file_name} has been removed"
 msgstr "{file_name} a été supprimé"
 
-#: pdf_bot/image_handler/batch_image_service.py:147
+#: pdf_bot/image_handler/batch_image_service.py:151
 msgid "You haven't sent me any images"
 msgstr "Vous ne m’avez pas envoyé d’images"
 
-#: pdf_bot/image_handler/batch_image_service.py:150
+#: pdf_bot/image_handler/batch_image_service.py:154
 msgid "You've only sent me one image"
 msgstr "Vous ne m’avez envoyé qu’une seule image"
 
-#: pdf_bot/image_handler/batch_image_service.py:167
+#: pdf_bot/image_handler/batch_image_service.py:171
 msgid "Beautifying and converting your images into a PDF file"
 msgstr "Embellir et convertir vos images en fichier PDF"
 
-#: pdf_bot/image_handler/batch_image_service.py:169
+#: pdf_bot/image_handler/batch_image_service.py:173
 msgid "Converting your images into a PDF file"
 msgstr "Conversion de vos images en fichier PDF"
 
-#: pdf_bot/language/language_service.py:94
+#: pdf_bot/language/language_service.py:87
 msgid "Select your language"
 msgstr "Sélectionnez votre langue"
 
-#: pdf_bot/language/language_service.py:126
+#: pdf_bot/language/language_service.py:119
+#, python-brace-format
 msgid "Your language has been set to {language}"
 msgstr "Votre langue a été définie sur {language}"
 
@@ -267,35 +279,38 @@ msgstr "Envoyez-moi les fichiers PDF que vous souhaitez fusionner"
 msgid "Note that the files will be merged in the order that you send me"
 msgstr "Notez que les fichiers seront fusionnés dans l’ordre que vous m’envoyez"
 
-#: pdf_bot/merge/merge_service.py:81
+#: pdf_bot/merge/merge_service.py:85
 msgid "You've sent me these PDF files so far:"
 msgstr "Vous m’avez envoyé ces fichiers PDF jusqu’à présent:"
 
-#: pdf_bot/merge/merge_service.py:92
+#: pdf_bot/merge/merge_service.py:99
+#, python-brace-format
 msgid "Press {done} if you've sent me all the PDF files that you'll like to merge or keep sending me the PDF files"
 msgstr "Appuyez sur {done} si vous m’avez envoyé tous les fichiers PDF que vous souhaitez fusionner ou continuez à m’envoyer les fichiers PDF"
 
-#: pdf_bot/merge/merge_service.py:114
+#: pdf_bot/merge/merge_service.py:120
 msgid "You've already removed all the PDF files you've sent me"
 msgstr "Vous avez déjà supprimé tous les fichiers PDF que vous m’avez envoyés"
 
-#: pdf_bot/merge/merge_service.py:118
+#: pdf_bot/merge/merge_service.py:124
+#, python-brace-format
 msgid "{file_name} has been removed for merging"
 msgstr "{file_name} a été supprimé pour fusion"
 
-#: pdf_bot/merge/merge_service.py:140
+#: pdf_bot/merge/merge_service.py:146
 msgid "You haven't sent me any PDF files"
 msgstr "Vous n'avez pas envoyé de fichier PDF"
 
-#: pdf_bot/merge/merge_service.py:143
+#: pdf_bot/merge/merge_service.py:149
 msgid "You've only sent me one PDF file"
 msgstr "Vous ne m’avez envoyé qu’un seul fichier PDF"
 
-#: pdf_bot/merge/merge_service.py:156
+#: pdf_bot/merge/merge_service.py:162
 msgid "Merging your PDF files"
 msgstr "Fusion de vos fichiers PDF"
 
 #: pdf_bot/payment/payment_service.py:26
+#, python-brace-format
 msgid "{message} {emoji} (${value})"
 msgstr "{message} {emoji} (${value})"
 
@@ -339,7 +354,7 @@ msgstr "Aider à traduire PDF Bot"
 msgid "Your PDF file is encrypted, decrypt it first then try again"
 msgstr "Votre fichier PDF est crypté, décryptez-le d’abord, puis réessayez"
 
-#: pdf_bot/pdf/pdf_service.py:163
+#: pdf_bot/pdf/pdf_service.py:164
 msgid "Your PDF file is not encrypted"
 msgstr "Votre PDF n'est pas crypté"
 
@@ -347,27 +362,28 @@ msgstr "Votre PDF n'est pas crypté"
 msgid "Incorrect password, please try again"
 msgstr "Mot de passe incorrect, veuillez réessayer"
 
-#: pdf_bot/pdf/pdf_service.py:172
+#: pdf_bot/pdf/pdf_service.py:171
 msgid "Your PDF file is encrypted with a method that I can't decrypt"
 msgstr "Votre fichier PDF est crypté avec une méthode que je ne peux pas déchiffrer"
 
-#: pdf_bot/pdf/pdf_service.py:204
+#: pdf_bot/pdf/pdf_service.py:203
 msgid "No images found in your PDF file"
 msgstr "Aucune image trouvée dans votre fichier PDF"
 
-#: pdf_bot/pdf/pdf_service.py:216
+#: pdf_bot/pdf/pdf_service.py:215
 msgid "No text found in your PDF file"
 msgstr "Aucun texte trouvé dans votre fichier PDF"
 
-#: pdf_bot/pdf/pdf_service.py:237
-msgid "I couldn't merge your PDF files as this file is invalid: {file_name}"
-msgstr "Je n’ai pas pu fusionner vos fichiers PDF car ce fichier n’est pas valide: {file_name}"
+#: pdf_bot/pdf/pdf_service.py:234
+#, python-format
+msgid "I couldn't merge your PDF files as this file is invalid: %s"
+msgstr "Je n’ai pas pu fusionner vos fichiers PDF car ce fichier n’est pas valide : %s"
 
-#: pdf_bot/pdf/pdf_service.py:252
+#: pdf_bot/pdf/pdf_service.py:249
 msgid "Your PDF file already has a text layer"
 msgstr "Votre fichier PDF a déjà une couche de texte"
 
-#: pdf_bot/pdf/pdf_service.py:341
+#: pdf_bot/pdf/pdf_service.py:338
 msgid "Your PDF file is invalid"
 msgstr "Votre fichier PDF n’est pas valide"
 
@@ -376,6 +392,7 @@ msgid "Compress"
 msgstr "Compresser"
 
 #: pdf_bot/pdf_processor/compress_pdf_processor.py:35
+#, python-brace-format
 msgid "File size reduced by {percent}, from {old_size} to {new_size}"
 msgstr "Taille du fichier réduite de {percent}, de {old_size} à {new_size}"
 
@@ -387,27 +404,27 @@ msgstr "En pourcentage"
 msgid "To margin size"
 msgstr "Vers la taille de la marge"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:23
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:24
 msgid "Send me a number between 0 and 100\n\n"
 "This is the percentage of margin space to retain between the content in your PDF file and the page"
 msgstr "Envoyez-moi un nombre entre 0 et 100\n\n"
 "Il s’agit du pourcentage d’espace de marge à conserver entre le contenu de votre fichier PDF et la page"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:29
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:30
 msgid "Send me a number that you'll like to adjust the margin size\n\n"
 "Positive numbers will decrease the margin size and negative numbers will increase it"
 msgstr "Envoyez-moi un numéro dont vous souhaitez ajuster la taille de la marge\n\n"
 "Les nombres positifs diminueront la taille de la marge et les nombres négatifs l’augmenteront"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:55
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:54
 msgid "Crop"
 msgstr "Rogner"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:59
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:58
 msgid "Select the crop type you'll like to perform"
 msgstr "Sélectionnez le type de recadrage que vous souhaitez effectuer"
 
-#: pdf_bot/pdf_processor/crop_pdf_processor.py:67
+#: pdf_bot/pdf_processor/crop_pdf_processor.py:66
 msgid "The crop values are invalid, try again"
 msgstr "Les valeurs de recadrage ne sont pas valides, réessayez"
 
@@ -451,21 +468,22 @@ msgstr "Prévisualiser"
 msgid "Rename"
 msgstr "Renommer"
 
-#: pdf_bot/pdf_processor/rename_pdf_processor.py:36
+#: pdf_bot/pdf_processor/rename_pdf_processor.py:35
+#, python-format
 msgid "File names can't contain any of the following characters, please try again:\n"
-"{invalid_chars}"
+"%s"
 msgstr "Les noms de fichiers ne peuvent contenir aucun des caractères suivants, veuillez réessayer :\n"
-"{invalid_chars}"
+"%s"
 
 #: pdf_bot/pdf_processor/rename_pdf_processor.py:40
 msgid "Send me the file name that you'll like to rename your PDF file into"
 msgstr "Envoyez-moi le nom du fichier que vous aimeriez renommer en PDF"
 
-#: pdf_bot/pdf_processor/rotate_pdf_processor.py:38
+#: pdf_bot/pdf_processor/rotate_pdf_processor.py:37
 msgid "Rotate"
 msgstr "Rotation"
 
-#: pdf_bot/pdf_processor/rotate_pdf_processor.py:76
+#: pdf_bot/pdf_processor/rotate_pdf_processor.py:75
 msgid "Select the degrees that you'll like to rotate your PDF file in clockwise"
 msgstr "Sélectionnez les degrés que vous voulez pour faire pivoter votre fichier PDF dans le sens des aiguilles d'une montre"
 
@@ -477,27 +495,27 @@ msgstr "Par facteur"
 msgid "To dimension"
 msgstr "Pour dimensionner"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:24
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:25
 msgid "Send me the scaling factors for the horizontal and vertical axes\n\n"
 "Example: 2 0.5 - this will double the horizontal axis and halve the vertical axis"
 msgstr "Envoyez-moi les facteurs d’échelle pour les axes horizontal et vertical\n\n"
 "Exemple : 2 0,5 - cela doublera l’axe horizontal et réduira de moitié l’axe vertical"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:30
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:31
 msgid "Send me the width and height\n\n"
 "Example: 150 200 - this will set the width to 150 and height to 200"
 msgstr "Envoyez-moi la largeur et la hauteur\n\n"
 "Exemple: 150 200 - cela définira la largeur à 150 et la hauteur à 200"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:55
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:54
 msgid "Scale"
 msgstr "Échelle"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:59
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:58
 msgid "Select the scale type you'll like to perform"
 msgstr "Sélectionnez le type de mise à l’échelle que vous souhaitez effectuer"
 
-#: pdf_bot/pdf_processor/scale_pdf_processor.py:67
+#: pdf_bot/pdf_processor/scale_pdf_processor.py:66
 msgid "The scale values are invalid, try again"
 msgstr "Les valeurs d’échelle ne sont pas valides, réessayez"
 
@@ -518,38 +536,47 @@ msgid "General usage"
 msgstr "Utilisation générale"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:57
+#, python-brace-format
 msgid "{range}      all pages"
 msgstr "{range}      toutes les pages"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:58
+#, python-brace-format
 msgid "{range}      page 8 only"
 msgstr "{range}      page 8 seulement"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:59
+#, python-brace-format
 msgid "{range}    first three pages"
 msgstr "{range}    trois premières pages"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:60
+#, python-brace-format
 msgid "{range}     from page 8 onward"
 msgstr "{range}     à partir de la page 8"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:61
+#, python-brace-format
 msgid "{range}     last page only"
 msgstr "{range}     dernière page seulement"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:62
+#, python-brace-format
 msgid "{range}    all pages except the last page"
 msgstr "{range}    toutes les pages à l’exception de la dernière page"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:63
+#, python-brace-format
 msgid "{range}     second last page only"
 msgstr "{range}     avant-dernière page seulement"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:64
+#, python-brace-format
 msgid "{range}    last two pages"
 msgstr "{range}    deux dernières pages"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:65
+#, python-brace-format
 msgid "{range}  third and second last pages"
 msgstr "{range}  troisième et avant-dernière pages"
 
@@ -558,32 +585,37 @@ msgid "Advanced usage"
 msgstr "Utilisation avancée"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:67
+#, python-brace-format
 msgid "{range}    pages {pages} and to the end"
 msgstr "{range}    pages {pages} et jusqu’à la fin"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:70
+#, python-brace-format
 msgid "{range} pages {pages}"
 msgstr "{pages}pages {range}"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:71
+#, python-brace-format
 msgid "{range}   all pages in reversed order"
 msgstr "{range}   toutes les pages dans l’ordre inverse"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:72
+#, python-brace-format
 msgid "{range} pages {pages} except {page}"
 msgstr "{range} pages {pages} sauf {page}"
 
 #: pdf_bot/pdf_processor/split_pdf_processor.py:75
+#, python-brace-format
 msgid "{range}  pages {pages}"
 msgstr "{pages}pages {range}"
 
-#: pdf_bot/telegram_internal/telegram_service.py:68
-msgid "Your file is too large for me to download and process, please try again with a differnt file\n\n"
+#: pdf_bot/telegram_internal/telegram_service.py:69
+msgid "Your file is too large for me to download and process, please try again with a different file\n\n"
 "Note that this limit is enforced by Telegram and there's nothing I can do unless Telegram changes it"
 msgstr "Votre fichier est trop volumineux pour que je puisse le télécharger et le traiter, veuillez réessayer avec un autre fichier\n\n"
-"Notez que cette limite est appliquée par Telegram et que je ne peux rien faire à moins que Telegram ne la modifie"
+"Notez que cette limite est appliquée par Telegram et qu’il n’y a rien que je puisse faire à moins que Telegram ne la modifie"
 
-#: pdf_bot/telegram_internal/telegram_service.py:80
+#: pdf_bot/telegram_internal/telegram_service.py:81
 msgid "The file is too large for me to send to you\n\n"
 "Note that this limit is enforced by Telegram and there's nothing I can do unless Telegram changes it"
 msgstr "Le fichier est trop volumineux pour que je puisse vous l’envoyer\n\n"
@@ -619,11 +651,13 @@ msgstr "Sautiller"
 msgid "Send me the text that you'll like to write into your PDF file"
 msgstr "Envoyez-moi le texte que vous aimeriez écrire dans votre fichier PDF"
 
-#: pdf_bot/text/text_service.py:58
+#: pdf_bot/text/text_service.py:59
+#, python-brace-format
 msgid "Send me the font that you'll like to use for the PDF file or press {skip} to use the default font"
 msgstr "Envoyez-moi la police que vous souhaitez utiliser pour le fichier PDF ou appuyez sur {skip} pour utiliser la police par défaut"
 
 #: pdf_bot/text/text_service.py:62
+#, python-brace-format
 msgid "See here for the list of supported fonts: {fonts}"
 msgstr "Voir ici pour la liste des polices prises en charge: {fonts}"
 
@@ -1686,5 +1720,25 @@ msgstr "Impossible de convertir votre page Web"
 #~ msgstr ""
 
 #~ msgid "Your PDF file is encrypted"
+#~ msgstr ""
+
+#~ msgid "I couldn't merge your PDF files as this file is invalid: {file_name}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "File names can't contain any of "
+#~ "the following characters, please try "
+#~ "again:\n"
+#~ "{invalid_chars}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Your file is too large for me "
+#~ "to download and process, please try "
+#~ "again with a differnt file\n"
+#~ "\n"
+#~ "Note that this limit is enforced "
+#~ "by Telegram and there's nothing I "
+#~ "can do unless Telegram changes it"
 #~ msgstr ""
 

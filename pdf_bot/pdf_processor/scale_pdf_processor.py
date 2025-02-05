@@ -19,22 +19,21 @@ class ScaleType(SelectOption):
     to_dimension = _("To dimension")
 
     @property
-    def ask_value_text(self) -> str:  # type: ignore[return] # pragma: no cover
+    def ask_value_text(self) -> str:  # pragma: no cover
         if self == ScaleType.by_factor:
             return _(
                 "Send me the scaling factors for the horizontal and vertical"
                 " axes\n\nExample: 2 0.5 - this will double the horizontal axis and"
                 " halve the vertical axis"
             )
-        if self == ScaleType.to_dimension:  # noqa: implicit-return
+        if self == ScaleType.to_dimension:  # noqa: RET503
             return _(
                 "Send me the width and height\n\nExample: 150 200 - this will set"
                 " the width to 150 and height to 200"
             )
 
 
-class ScalePdfData(FileData):
-    ...
+class ScalePdfData(FileData): ...
 
 
 class ScaleOptionAndInputData(OptionAndInputData):

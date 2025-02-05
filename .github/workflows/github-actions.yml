@@ -6,6 +6,10 @@ on:
       - master
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: Test
@@ -13,22 +17,22 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Python 🐍
         id: setup-python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version-file: ".python-version"
 
       - name: Install Poetry 📦
-        uses: snok/install-poetry@v1.3.3
+        uses: snok/install-poetry@v1.4.1
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
 
       - name: Cache virtual environment 💾
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .venv
           key: ${{ runner.os }}-venv-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
@@ -44,11 +48,10 @@ jobs:
           pybabel compile -D pdf_bot -d locale
           pytest --cov --cov-report=xml
 
-      - name: Run SonarCloud scan ☁️
-        uses: sonarsource/sonarcloud-github-action@v1.8
+      - name: Upload coverage report 📡
+        uses: codecov/codecov-action@v5.3.1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   lint:
     name: Lint
@@ -56,22 +59,22 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Python 🐍
         id: setup-python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version-file: ".python-version"
 
       - name: Install Poetry 📦
-        uses: snok/install-poetry@v1.3.3
+        uses: snok/install-poetry@v1.4.1
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
 
       - name: Cache virtual environment 💾
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .venv
           key: ${{ runner.os }}-venv-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
@@ -86,108 +89,75 @@ jobs:
           source .venv/bin/activate
           pre-commit run --all-files
 
-  snyk-scan:
-    name: Snyk scan
+  check-docker-image:
+    name: Check Docker image
     runs-on: ubuntu-latest
+    if: ${{ github.ref != 'refs/heads/master' }}
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Snyk 🐕
-        uses: snyk/actions/setup@master
+      - name: Build Docker image 🏗
+        run: |-
+          docker build .
 
-      - name: Setup Python 🐍
-        id: setup-python
-        uses: actions/setup-python@v4
-        with:
-          python-version-file: ".python-version"
-
-      - name: Install Poetry 📦
-        uses: snok/install-poetry@v1.3.3
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-
-      - name: Cache virtual environment 💾
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: ${{ runner.os }}-venv-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-venv-${{ steps.setup-python.outputs.python-version }}-
-
-      - name: Install dependencies ⚙️
-        run: poetry install --no-root --no-interaction
-
-      - name: Run Snyk scan 🛡️
-        continue-on-error: true # To make sure that SARIF upload gets called
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk test --sarif-file-output=snyk.sarif
-
-      - name: Upload Snyk results 📡
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk.sarif
-
-      - name: Run Snyk monitor 🖥️
-        if: ${{ github.ref == 'refs/heads/master' }}
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk monitor
-
-  git-guardian-scan:
-    name: GitGuardian scan
+  check-pyenv:
+    name: Check pyenv
     runs-on: ubuntu-latest
+    if: ${{ github.ref != 'refs/heads/master' }}
+
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v4
 
-      - name: Run GitGuardian scan 🤐
-        uses: GitGuardian/ggshield-action@master
-        env:
-          GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
-          GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
-          GITHUB_PULL_BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-          GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
+      - name: Check Python version in pyenv 🐍
+        run: |
+          curl https://pyenv.run | bash
+          export PYENV_ROOT="$HOME/.pyenv"
+          command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+          eval "$(pyenv init -)"
+          pyenv install
 
   build-deploy:
     name: Build and deploy
     runs-on: ubuntu-latest
-    needs: [test, lint, snyk-scan, git-guardian-scan]
+    needs: [test, lint]
     if: ${{ github.ref == 'refs/heads/master' }}
-    concurrency: production
     environment:
       name: Production
     env:
       DOCKER_IMAGE: registry.digitalocean.com/${{ secrets.DIGITALOCEAN_REGISTRY }}/${{ secrets.DIGITALOCEAN_APP_NAME }}:${{ github.sha }}
 
     steps:
+      - name: Create GitHub App token 🔑
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: master
-          token: ${{ secrets.PAT }}
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Setup Python 🐍
         id: setup-python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version-file: ".python-version"
 
       - name: Install Poetry 📦
-        uses: snok/install-poetry@v1.3.3
+        uses: snok/install-poetry@v1.4.1
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
 
       - name: Cache virtual environment 💾
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .venv
           key: ${{ runner.os }}-venv-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
@@ -198,40 +168,40 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - name: Update localization source file 📄
+        id: update-i18n-source
         run: |
           source .venv/bin/activate
           pybabel extract pdf_bot/ -o locale/pdf_bot.pot
           pybabel update -l locale -i locale/pdf_bot.pot -o locale/en_GB/LC_MESSAGES/pdf_bot.po
-          echo NUM_DIFFS=$(git diff --shortstat | egrep -o '[0-9]+ i' | egrep -o '[0-9]+') >> $GITHUB_ENV
+          echo "NUM_DIFFS=$(git diff --shortstat | egrep -o '[0-9]+ i' | egrep -o '[0-9]+')" >> "$GITHUB_OUTPUT"
 
       - name: Commit changes 🆕
-        if: env.NUM_DIFFS > 1
-        uses: stefanzweifel/git-auto-commit-action@v4.16.0
+        if: ${{ steps.update-i18n-source.outputs.NUM_DIFFS > 1 }}
+        uses: stefanzweifel/git-auto-commit-action@v5.1.0
         with:
           commit_message: "ci: update localization source file [skip ci]"
           file_pattern: locale/en_GB/LC_MESSAGES/pdf_bot.po
-          push_options: --force
 
       - name: Upload sources and download translations 🌐
-        if: env.NUM_DIFFS > 1
-        uses: crowdin/github-action@v1.6.0
+        if: ${{ steps.update-i18n-source.outputs.NUM_DIFFS > 1 }}
+        uses: crowdin/github-action@v2.5.2
         with:
           upload_sources: true
           upload_translations: false
           download_translations: true
-          commit_message: "feat: update translations with latest changes [skip ci]"
+          commit_message: "fix: update translations with latest changes [skip ci]"
           create_pull_request: false
           localization_branch_name: master
           config: ./crowdin.yml
           source: locale/en_GB/LC_MESSAGES/pdf_bot.po
           translation: /locale/%locale_with_underscore%/LC_MESSAGES/pdf_bot.po
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
 
       - name: Install doctl 🌊
-        uses: digitalocean/action-doctl@v2.3.0
+        uses: digitalocean/action-doctl@v2.5.1
         with:
           token: ${{ secrets.DIGITALOCEAN_TOKEN }}
 
@@ -244,17 +214,9 @@ jobs:
           docker push ${{ env.DOCKER_IMAGE }}
 
       - name: Deploy 🚀
-        uses: digitalocean/app_action@v1.1.4
+        uses: digitalocean/app_action/deploy@v2.0.8
+        env:
+          IMAGE_TAG_TELEGRAM_PDF_BOT: ${{ github.sha }}
         with:
-          app_name: ${{ secrets.DIGITALOCEAN_APP_NAME }}
           token: ${{ secrets.DIGITALOCEAN_TOKEN }}
-          images: '[
-            {
-            "name": "${{ secrets.DIGITALOCEAN_APP_NAME }}",
-            "image": {
-            "registry_type": "DOCR",
-            "repository": "${{ secrets.DIGITALOCEAN_APP_NAME }}",
-            "tag": "${{ github.sha }}"
-            }
-            }
-            ]'
+          app_name: ${{ secrets.DIGITALOCEAN_APP_NAME }}

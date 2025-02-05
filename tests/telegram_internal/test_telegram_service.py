@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, call, patch
 
 import pytest
 from telegram import File, InlineKeyboardMarkup, Message, ReplyKeyboardMarkup
-from telegram.constants import ChatAction, FileSizeLimit, ParseMode
+from telegram.constants import ChatAction, FileSizeLimit, MessageLimit, ParseMode
 from telegram.ext import Application, ConversationHandler
 
 from pdf_bot.analytics import AnalyticsService, EventAction, TaskType
@@ -30,6 +30,7 @@ class TestTelegramService(LanguageServiceTestMixin, TelegramTestMixin):
     USER_DATA_VALUE = "user_data_value"
     BACK = "Back"
     CANCEL = "Cancel"
+    MESSAGE_TRUNCATED = "\n..."
 
     def setup_method(self) -> None:
         super().setup_method()
@@ -43,16 +44,10 @@ class TestTelegramService(LanguageServiceTestMixin, TelegramTestMixin):
             bot=self.telegram_bot,
         )
 
-        self.os_patcher = patch("pdf_bot.telegram_internal.telegram_service.os")
         self.open_patcher = patch("builtins.open")
-
-        self.os = self.os_patcher.start()
         self.open_patcher.start()
 
-        self.os.path.getsize.return_value = FileSizeLimit.FILESIZE_UPLOAD
-
     def teardown_method(self) -> None:
-        self.os_patcher.stop()
         self.open_patcher.stop()
         super().teardown_method()
 
@@ -76,16 +71,18 @@ class TestTelegramService(LanguageServiceTestMixin, TelegramTestMixin):
 
     @pytest.mark.asyncio
     async def test_check_file_upload_size(self) -> None:
-        with patch("pdf_bot.telegram_internal.telegram_service.os") as os:
-            os.path.getsize.return_value = FileSizeLimit.FILESIZE_UPLOAD
-            self.sut.check_file_upload_size(self.file_path)
+        file_stat = self.mock_path_stat(self.file_path)
+        file_stat.st_size = FileSizeLimit.FILESIZE_UPLOAD
+
+        self.sut.check_file_upload_size(self.file_path)
 
     @pytest.mark.asyncio
     async def test_check_file_upload_size_too_large(self) -> None:
-        with patch("pdf_bot.telegram_internal.telegram_service.os") as os:
-            os.path.getsize.return_value = FileSizeLimit.FILESIZE_UPLOAD + 1
-            with pytest.raises(TelegramFileTooLargeError):
-                self.sut.check_file_upload_size(self.file_path)
+        file_stat = self.mock_path_stat(self.file_path)
+        file_stat.st_size = FileSizeLimit.FILESIZE_UPLOAD + 1
+
+        with pytest.raises(TelegramFileTooLargeError):
+            self.sut.check_file_upload_size(self.file_path)
 
     @pytest.mark.asyncio
     async def test_check_image_document(self) -> None:
@@ -379,6 +376,8 @@ class TestTelegramService(LanguageServiceTestMixin, TelegramTestMixin):
     @pytest.mark.asyncio
     async def test_send_file_document(self) -> None:
         file_path = self.file_path.with_suffix(".pdf")
+        stat = self.mock_path_stat(file_path)
+        stat.st_size = FileSizeLimit.FILESIZE_UPLOAD
         self.telegram_update.callback_query = None
 
         await self.sut.send_file(
@@ -402,6 +401,8 @@ class TestTelegramService(LanguageServiceTestMixin, TelegramTestMixin):
     @pytest.mark.asyncio
     async def test_send_file_image(self) -> None:
         self.file_path.suffix = ".png"
+        stat = self.mock_path_stat(self.file_path)
+        stat.st_size = FileSizeLimit.FILESIZE_UPLOAD
         self.telegram_update.callback_query = None
 
         await self.sut.send_file(
@@ -426,6 +427,8 @@ class TestTelegramService(LanguageServiceTestMixin, TelegramTestMixin):
     async def test_send_file_document_with_query(self) -> None:
         chat_id = 10
         file_path = self.file_path.with_suffix(".pdf")
+        stat = self.mock_path_stat(file_path)
+        stat.st_size = FileSizeLimit.FILESIZE_UPLOAD
         message = MagicMock(spec=Message)
         message.chat_id = chat_id
         self.telegram_callback_query.message = message
@@ -451,7 +454,8 @@ class TestTelegramService(LanguageServiceTestMixin, TelegramTestMixin):
 
     @pytest.mark.asyncio
     async def test_send_file_too_large(self) -> None:
-        self.os.path.getsize.return_value = FileSizeLimit.FILESIZE_UPLOAD + 1
+        stat = self.mock_path_stat(self.file_path)
+        stat.st_size = FileSizeLimit.FILESIZE_UPLOAD + 1
 
         await self.sut.send_file(
             self.telegram_update,
@@ -475,6 +479,18 @@ class TestTelegramService(LanguageServiceTestMixin, TelegramTestMixin):
             self.TELEGRAM_CHAT_ID,
             f"{self.TELEGRAM_TEXT}1: a\n2: File name unavailable\n",
         )
+
+    @pytest.mark.asyncio
+    async def test_send_file_names_truncate(self) -> None:
+        file_data_list = [FileData(str(x), str(x)) for x in range(MessageLimit.MAX_TEXT_LENGTH + 1)]
+
+        await self.sut.send_file_names(self.TELEGRAM_CHAT_ID, self.TELEGRAM_TEXT, file_data_list)
+
+        args = self.telegram_bot.send_message.call_args[0]
+        text = args[1]
+
+        assert len(text) == MessageLimit.MAX_TEXT_LENGTH
+        assert text.endswith(self.MESSAGE_TRUNCATED)
 
     @pytest.mark.asyncio
     async def test_send_message(self) -> None:

@@ -19,7 +19,9 @@ class ErrorHandler:
             return
 
         if not isinstance(update, Update):
-            logger.exception("Something went wrong without an Update instance", context.error)
+            logger.exception(
+                "Something went wrong without an Update instance", exc_info=context.error
+            )
             sentry_sdk.capture_exception(context.error)
             return
 
@@ -27,12 +29,12 @@ class ErrorHandler:
 
     async def _handle_error(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         try:
-            raise context.error  # type: ignore # noqa: raise-within-try
+            raise context.error  # type: ignore[misc] # noqa: TRY301
         except Forbidden:
             pass
         except BadRequest as e:
             await self._handle_bad_request(update, context, e)
-        except Exception as e:  # noqa: BlindExcept
+        except Exception as e:  # noqa: BLE001
             await self._send_message(update, context, _("Something went wrong, please try again"))
             sentry_sdk.capture_exception(e)
 
@@ -51,9 +53,12 @@ class ErrorHandler:
             )
         ):
             return
+
         if err_msg.startswith("query is too old and response timeout expired"):
             err_text = _("The button has expired, start over with your file or command")
-        else:
+        elif err_msg.startswith("photo_invalid_dimensions"):
+            err_text = _("The resulted image is invalid, try again")
+        elif not err_msg.startswith("file must be non-empty"):
             sentry_sdk.capture_exception(error)
 
         await self._send_message(update, context, err_text)
